@@ -1,23 +1,49 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from 'react';
 
 function App() {
+  const [originalText, setOriginalText] = useState('');
+  const [encodedText, setEncodedText] = useState('');
+  const [decodedText, setDecodedText] = useState('');
+
+  const handleEncode = () => {
+    const encoded = btoa(originalText);
+    setEncodedText(encoded);
+  };
+
+  const handleDecode = () => {
+    const decoded = atob(encodedText);
+    setDecodedText(decoded);
+  };
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <h1>Base64 Encode and Decode</h1>
+      <div>
+        <label>Original Text:</label>
+        <input
+          type="text"
+          value={originalText}
+          onChange={(e) => setOriginalText(e.target.value)}
+        />
+        <button onClick={handleEncode}>Encode</button>
+      </div>
+      <div>
+        <label>Encoded Text:</label>
+        <input
+          type="text"
+          value={encodedText}
+          readOnly
+        />
+      </div>
+      <div>
+        <label>Decoded Text:</label>
+        <input
+          type="text"
+          value={decodedText}
+          readOnly
+        />
+        <button onClick={handleDecode}>Decode</button>
+      </div>
     </div>
   );
 }
